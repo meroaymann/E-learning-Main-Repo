@@ -9,6 +9,9 @@ export class Quiz {
   quizId: string; // Unique identifier for the quiz
 
   @Prop({ required: true })
+  quizTitle: string; // Title of the quiz
+
+  @Prop({ required: true })
   moduleId: string; // Associated module ID
 
   @Prop({ 
@@ -27,8 +30,23 @@ export class Quiz {
     correctAnswer: string;
   }[]; // Array of quiz questions
 
+  @Prop({ required: true })
+  maxQuestions: number; // Maximum number of questions
+
+  @Prop({ required: true, enum: ['Yes', 'No'], default: 'Yes' })
+  isActive: string; // The quiz is active (Yes, No)
+
+  @Prop({ required: true })
+  createdBy: string; // userId who created the record
+
   @Prop({ required: true, default: () => new Date() })
   createdAt: Date; // Timestamp of quiz creation
+
+  @Prop({ required: false })
+  updatedBy?: string; // userId who updated the record (optional)
+
+  @Prop({ required: false })
+  updatedAt?: Date; // Timestamp of record update (optional)
 }
 
 export const QuizzesSchema = SchemaFactory.createForClass(Quiz);

@@ -18,13 +18,25 @@ export class Course {
   category: string; // Course category (e.g., Math, CS)
 
   @Prop({ required: true, enum: ['Beginner', 'Intermediate', 'Advanced'] })
-  difficultyLevel: string; // Difficulty level
+  difficultyLevel: string; // Difficulty level (Beginner, Intermediate, Advanced)
 
   @Prop({ required: true })
-  createdBy: string; // Instructor who created the course
+  minCoursePercentage: number; // Percentage to proceed for the next course in the learning path sequence
+
+  @Prop({ required: true, enum: ['Yes', 'No'], default: 'Yes' })
+  isActive: string; // The course is active (Yes, No)
+
+  @Prop({ required: true })
+  createdBy: string; // userId who created the record
 
   @Prop({ required: true, default: () => new Date() })
-  createdAt: Date; // Timestamp of course creation
+  createdAt: Date; // Timestamp of record creation
+
+  @Prop({ required: false })
+  updatedBy?: string; // userId who updated the record (optional)
+
+  @Prop({ required: false })
+  updatedAt?: Date; // Timestamp of record update (optional)
 }
 
 export const CoursesSchema = SchemaFactory.createForClass(Course);

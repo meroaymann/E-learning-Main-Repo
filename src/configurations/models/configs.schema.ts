@@ -12,6 +12,12 @@ export class Configuration {
   settings: Record<string, any>; // Key-value pairs for application settings
 
   @Prop({ required: true })
+  createdBy: string; // User who created the configuration
+
+  @Prop({ required: true, default: () => new Date() })
+  createdAt: Date; // Timestamp of configuration creation
+
+  @Prop({ required: true })
   updatedBy: string; // User who last updated the configuration
 
   @Prop({ required: true, default: () => new Date() })

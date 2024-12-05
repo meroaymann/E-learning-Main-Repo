@@ -12,6 +12,12 @@ export class Response {
   userId: string; // User who submitted the response
 
   @Prop({ required: true })
+  courseId: string; // Associated course ID
+
+  @Prop({ required: true })
+  moduleId: string; // Associated module ID
+
+  @Prop({ required: true })
   quizId: string; // Associated quiz ID
 
   @Prop({
@@ -19,6 +25,7 @@ export class Response {
       {
         questionId: { type: String, required: true }, // ID of the question
         selectedAnswer: { type: String, required: true }, // User's selected answer
+        correctAnswer: { type: String, required: true }, // Correct answer for the question
       },
     ],
     required: true,
@@ -26,13 +33,26 @@ export class Response {
   answers: {
     questionId: string;
     selectedAnswer: string;
-  }[]; // User’s answers to the quiz questions
+    correctAnswer: string;
+  }[]; // User’s answers to the quiz questions, including correct answers
 
   @Prop({ required: true })
-  score: number; // Score received for the quiz
+  totalScore: number; // Original total score of the quiz questions
+
+  @Prop({ required: true })
+  totalReceived: number; // Total score received for the quiz
+
+  @Prop({ required: true })
+  createdBy: string; // userId who created the record
 
   @Prop({ required: true, default: () => new Date() })
-  submittedAt: Date; // Timestamp of submission
+  createdAt: Date; // Timestamp of record creation
+
+  @Prop({ required: false })
+  updatedBy?: string; // userId who updated the record (optional)
+
+  @Prop({ required: false })
+  updatedAt?: Date; // Timestamp of record update (optional)
 }
 
 export const ResponsesSchema = SchemaFactory.createForClass(Response);
