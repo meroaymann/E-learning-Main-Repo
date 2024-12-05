@@ -12,13 +12,16 @@ export class AuthenticationLog {
   userId: string; // User who authenticated
 
   @Prop({ required: true })
-  event: string; // Event description (e.g., "Biometric Authentication")
+  event: string; // Event description (e.g., "Biometric Authentication", "Text password")
 
   @Prop({ required: true, default: () => new Date() })
   timestamp: Date; // Timestamp of the event
 
   @Prop({ required: true, enum: ['Success', 'Failure'] })
   status: string; // Status of authentication (e.g., "Success", "Failure")
+
+  @Prop({ required: false })
+  failureReason?: string; // Reason for failure (e.g., "Wrong password", "Wrong userId")
 }
 
 export const AuthenticationLogsSchema = SchemaFactory.createForClass(AuthenticationLog);
