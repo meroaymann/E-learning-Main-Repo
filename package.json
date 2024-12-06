@@ -1,18 +1,19 @@
 {
   "name": "e-learning-platform",
-  "version": "0.0.1",
+
+  "version": "1.0.0",
   "description": "",
   "author": "",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "format": "prettier --write \"src//.ts\" \"test//.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "lint": "eslint \"{src,apps,libs,test}//*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
@@ -26,23 +27,18 @@
     "@nestjs/mongoose": "^10.1.0",
     "@nestjs/passport": "^10.0.3",
     "@nestjs/platform-express": "^10.0.0",
-<<<<<<< HEAD
     "bcrypt": "^5.1.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "cookie-parser": "^1.4.7",
     "dotenv": "^16.4.5",
-    "mongoose": "^8.8.3",
+    "express": "^4.18.3",
+    "mongoose": "^8.8.4",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
-    "reflect-metadata": "^0.2.0",
-    "rxjs": "^7.8.1"
-=======
-    "mongoose": "^8.8.2",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
     "typeorm": "^0.3.20"
->>>>>>> 092af18e723d0360cf3d6fd298442732be34ef9f
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",
@@ -81,7 +77,7 @@
       "^.+\\.(t|j)s$": "ts-jest"
     },
     "collectCoverageFrom": [
-      "**/*.(t|j)s"
+      "/*.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
