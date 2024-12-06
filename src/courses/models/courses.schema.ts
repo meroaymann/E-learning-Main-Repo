@@ -6,7 +6,7 @@ export type CourseDocument = Document & Course;
 @Schema()
 export class Course {
   @Prop({ required: true })
-  id: string; // Unique identifier for the course
+  courseId: string; // Unique identifier for the course
 
   @Prop({ required: true })
   title: string; // Title of the course

@@ -1,13 +1,14 @@
 import { Module } from '@nestjs/common';
+import { ResponsesSchema } from '../responses/models/responses.schema';
 import { ResponsesController } from './responses.controller';
 import { ResponsesService } from './responses.service';
-import { ResponsesSchema } from '../responses/models/responses.schema';
 import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
-  imports: [MongooseModule.forFeature([{name:'responses',schema:ResponsesSchema}])],
+  imports: [MongooseModule.forFeature([{name:'Response',schema:ResponsesSchema}])],
   controllers: [ResponsesController],
-  providers: [ResponsesService]
+  providers: [ResponsesService],
+  exports: [ResponsesService, MongooseModule]
 })
 
 export class ResponsesModule {}

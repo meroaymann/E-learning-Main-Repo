@@ -1,4 +1,20 @@
-export class UpdateProgressDTO {
-    completionPercentage?: number;
-    lastAccessed?: Date;
-  }
+export class UpdateProgressDto {
+  userId?: string; // Associated student user ID (optional)
+  courseId?: string; // Associated course ID (optional)
+  courseSequence?: number; // Learning path sequence (optional)
+  quizzesPercentage?: number; // Percentage of quizzes completed (optional)
+  quizzesCompleted?: string; // All quizzes completed (Yes, No) (optional)
+  modulesPercentage?: number; // Percentage of modules completed (optional)
+  modulesCompleted?: string; // All modules completed (Yes, No) (optional)
+  coursePercentage?: number; // Percentage of course completed (optional)
+  performanceRangeId?: string; // Associated performance_range ID (optional)
+  courseCompleted?: string; // All course completed (Yes, No) (optional)
+  rateCourse?: number; // Student rating of the course (up to five stars) (optional)
+  courseFeedback?: string; // Student feedback for the course (optional)
+  rateInstructor?: number; // Student rating of the instructor (up to five stars) (optional)
+  instructorFeedback?: string; // Student feedback for the instructor (optional)
+  enrollDate?: Date; // Student enroll date (optional)
+  lastAccessed?: Date; // Last time the course was accessed (optional)
+  updatedBy?: string; // userId who updated the record (optional)
+  updatedAt?: Date; // Timestamp of record update (optional)
+}

@@ -20,24 +20,17 @@ export class Response {
   @Prop({ required: true })
   quizId: string; // Associated quiz ID
 
-  @Prop({
-    type: [
-      {
-        questionId: { type: String, required: true }, // ID of the question
-        selectedAnswer: { type: String, required: true }, // User's selected answer
-        correctAnswer: { type: String, required: true }, // Correct answer for the question
-      },
-    ],
-    required: true,
-  })
-  answers: {
-    questionId: string;
-    selectedAnswer: string;
-    correctAnswer: string;
-  }[]; // User’s answers to the quiz questions, including correct answers
+  @Prop({ required: true })
+  questionBankId: string; // Associated question ID
 
   @Prop({ required: true })
-  totalScore: number; // Original total score of the quiz questions
+  selectedAnswer: string; // Associated answer ID
+
+  @Prop({ required: true })
+  correctAnswer: string; // Correct answer ID
+
+  @Prop({ required: true })
+  totalScore: number; // The original total score of the quiz questions
 
   @Prop({ required: true })
   totalReceived: number; // Total score received for the quiz
