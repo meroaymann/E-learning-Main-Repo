@@ -29,8 +29,8 @@
     "test-notes": "ts-node src/test-notes.ts",
     "test-modules_rating": "ts-node src/test-modules_rating.ts",
     "test-forums": "ts-node src/test-forums.ts",
-    "test-forums_users": "ts-node src/test-forums-forums_users.ts",
-    "test-forum_replies": "ts-node src/test-forum-replies.ts",
+    "test-forums-users": "ts-node src/test-forums-users.ts",
+    "test-forum-replies": "ts-node src/test-forum-replies.ts",
     "test-course": "ts-node src/test-course.ts",
     "test-configurations": "ts-node src/test-configurations.ts",
     "test-authentication_logs": "ts-node src/test-authentication_logs.ts"
