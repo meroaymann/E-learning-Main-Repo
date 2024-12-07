@@ -1,8 +1,8 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from 'src/app.module';
-import { ConfigurationsService } from 'src/configurations/configurations.service';
-import { CreateConfigurationDto } from 'src/configurations/DTOs/CreateConfigsDto';
-import { UpdateConfigurationDto } from 'src/configurations/DTOs/UpdateConfigsDto';
+import { AppModule } from './app.module';
+import { ConfigurationsService } from './configurations/configurations.service';
+import { CreateConfigurationDto } from './configurations/DTOs/CreateConfigsDto';
+import { UpdateConfigurationDto } from './configurations/DTOs/UpdateConfigsDto';
 
 async function CreateConfiguration() {
   const app = await NestFactory.createApplicationContext(AppModule);

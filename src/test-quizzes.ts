@@ -1,8 +1,8 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from 'src/app.module';
-import { QuizService } from 'src/quizzes/quizzes.service';
-import { CreateQuizDto } from 'src/quizzes/DTOs/CreateQuizDto';
-import { UpdateQuizDto } from 'src/quizzes/DTOs/UpdateQuizDto';
+import { AppModule } from './app.module';
+import { QuizService } from './quizzes/quizzes.service';
+import { CreateQuizDto } from './quizzes/DTOs/CreateQuizDto';
+import { UpdateQuizDto } from './quizzes/DTOs/UpdateQuizDto';
 
 async function CreateQuiz(moduleId: string) {
   const app = await NestFactory.createApplicationContext(AppModule);

@@ -1,8 +1,8 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from 'src/app.module';
-import { QuestionBankAnswersService } from 'src/question-bank-answers/question-bank-answers.service';
-import { CreateQuestionBankAnswerDto } from 'src/question-bank-answers/DTOs/CreateQuestionBankAnsDto';
-import { UpdateQuestionBankAnswerDto } from 'src/question-bank-answers/DTOs/UpdateQuestionBankAnsDto';
+import { AppModule } from './app.module';
+import { QuestionBankAnswersService } from './question-bank-answers/question-bank-answers.service';
+import { CreateQuestionBankAnswerDto } from './question-bank-answers/DTOs/CreateQuestionBankAnsDto';
+import { UpdateQuestionBankAnswerDto } from './question-bank-answers/DTOs/UpdateQuestionBankAnsDto';
 
 async function AddAnswerToQuestion(questionBankId: string) {
   const app = await NestFactory.createApplicationContext(AppModule);

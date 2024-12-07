@@ -1,8 +1,8 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from 'src/app.module';
-import { PerformanceRangeService } from 'src/performance-range/performance-range.service';
-import { CreatePerformanceRangeDto } from 'src/performance-range/DTOs/CreatePerformanceRangeDto';
-import { UpdatePerformanceRangeDto } from 'src/performance-range/DTOs/UpdatePerformanceRangeDto';
+import { AppModule } from './app.module';
+import { PerformanceRangeService } from './performance-range/performance-range.service';
+import { CreatePerformanceRangeDto } from './performance-range/DTOs/CreatePerformanceRangeDto';
+import { UpdatePerformanceRangeDto } from './performance-range/DTOs/UpdatePerformanceRangeDto';
 
 async function RegisterPerformanceRange() {
   const app = await NestFactory.createApplicationContext(AppModule);

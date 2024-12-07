@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from 'src/app.module';
-import { ModulesRatingService } from 'src/modules-rating/modules-rating.service';
-import { CreateModuleRatingDto } from 'src/modules-rating/DTOs/CreateModulesRatingDto';
+import { AppModule } from './app.module';
+import { ModulesRatingService } from './modules-rating/modules-rating.service';
+import { CreateModuleRatingDto } from './modules-rating/DTOs/CreateModulesRatingDto';
 
 async function AddModuleRating(moduleId: string, courseId: string, userId: string) {
   const app = await NestFactory.createApplicationContext(AppModule);
