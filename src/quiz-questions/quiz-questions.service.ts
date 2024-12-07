@@ -15,48 +15,37 @@ export class QuizQuestionsService {
     quizId: string,
     questions: Partial<QuizQuestion>[],
   ): Promise<QuizQuestion[]> {
-    if (!quizId || !questions || !Array.isArray(questions) || questions.length === 0) {
-      throw new Error('Invalid quizId or questions input');
-    }
-
     const linkedQuestions = questions.map((question) => ({
       ...question,
       quizId,
     }));
 
-    try {
-      return await this.quizQuestionModel.insertMany(linkedQuestions);
-    } catch (error) {
-      throw new Error(`Failed to link questions to quiz: ${error.message}`);
-    }
+    const createdDocs = await this.quizQuestionModel.insertMany(linkedQuestions);
+
+    // Map Mongoose documents to plain QuizQuestion objects
+    return createdDocs.map((doc) => ({
+      quizQuestionId: doc.quizQuestionId,
+      courseId: doc.courseId,
+      moduleId: doc.moduleId,
+      quizId: doc.quizId,
+      questionBankId: doc.questionBankId,
+      createdBy: doc.createdBy,
+      createdAt: doc.createdAt,
+      updatedBy: doc.updatedBy,
+      updatedAt: doc.updatedAt,
+    }));
   }
 
   // Get all questions linked to a quiz
   async getQuestionsByQuizId(quizId: string): Promise<QuizQuestion[]> {
-    if (!quizId) {
-      throw new Error('Quiz ID is required');
-    }
-
-    try {
-      return await this.quizQuestionModel.find({ quizId }).exec();
-    } catch (error) {
-      throw new Error(`Failed to fetch questions for quiz ID ${quizId}: ${error.message}`);
-    }
+    return await this.quizQuestionModel.find({ quizId }).exec();
   }
 
   // Unlink a question from a quiz
   async unlinkQuestion(id: string): Promise<void> {
-    if (!id) {
-      throw new Error('Question ID is required');
-    }
-
-    try {
-      const result = await this.quizQuestionModel.findByIdAndDelete(id).exec();
-      if (!result) {
-        throw new NotFoundException(`Quiz question with ID ${id} not found`);
-      }
-    } catch (error) {
-      throw new Error(`Failed to unlink question with ID ${id}: ${error.message}`);
+    const result = await this.quizQuestionModel.findByIdAndDelete(id).exec();
+    if (!result) {
+      throw new NotFoundException('Quiz question with ID ${id} not found');
     }
   }
 }
