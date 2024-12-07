@@ -124,7 +124,7 @@ async function testDeleteNote(notesService: NotesService, noteId: string, userId
 }
 
 // Example function calls
-// CreateNote();
+CreateNote();
 // GetAllNotes('user123');
 // GetNoteById('note001', 'user123');
 // UpdateNote('note001', 'user123');
