@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from 'src/app.module';
-import { AuthenticationLogService } from 'src/authentication-logs/authentication-logs.service';
-import { CreateAuthenticationLogDto } from 'src/authentication-logs/DTOs/CreateAuthLogDto';
+import { AppModule } from './app.module';
+import { AuthenticationLogService } from './authentication-logs/authentication-logs.service';
+import { CreateAuthenticationLogDto } from './authentication-logs/DTOs/CreateAuthLogDto';
 
 async function LogAuthenticationEvent() {
   const app = await NestFactory.createApplicationContext(AppModule);
