@@ -1,32 +1,40 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Response, ResponseDocument } from './models/responses.schema';
-import { CreateResponseDto } from './DTOs/CreateResponseDto';
-import { UpdateResponseDto } from './DTOs/UpdateResponseDto';
 
 @Injectable()
 export class ResponsesService {
-  constructor(@InjectModel(Response.name) private responseModel: Model<ResponseDocument>) {}
+  constructor(
+    @InjectModel(Response.name)
+    private readonly responseModel: Model<ResponseDocument>,
+  ) {}
 
-  async create(createResponseDto: CreateResponseDto): Promise<Response> {
-    const response = new this.responseModel(createResponseDto);
-    return response.save();
+  // Submit quiz responses
+  async submitResponse(responseData: Partial<Response>): Promise<Response> {
+    const response = new this.responseModel(responseData);
+    return await response.save();
   }
 
-  async findAll(): Promise<Response[]> {
-    return this.responseModel.find().exec();
+  // Get all responses for a quiz
+  async getResponsesByQuizId(quizId: string): Promise<Response[]> {
+    return await this.responseModel.find({ quizId }).exec();
   }
 
-  async findOne(id: string): Promise<Response> {
-    return this.responseModel.findById(id).exec();
+  // Get details of a specific response
+  async getResponseById(id: string): Promise<Response> {
+    const response = await this.responseModel.findById(id).exec();
+    if (!response) {
+      throw new NotFoundException(`Response with ID ${id} not found`);
+    }
+    return response;
   }
 
-  async update(id: string, updateResponseDto: UpdateResponseDto): Promise<Response> {
-    return this.responseModel.findByIdAndUpdate(id, updateResponseDto, { new: true }).exec();
+  // Delete a quiz response
+  async deleteResponse(id: string): Promise<void> {
+    const result = await this.responseModel.findByIdAndDelete(id).exec();
+    if (!result) {
+      throw new NotFoundException(`Response with ID ${id} not found`);
+    }
   }
-
-  async remove(id: string): Promise<Response> {
-    return await this.responseModel.findByIdAndDelete(id).exec();
-  }  
 }
