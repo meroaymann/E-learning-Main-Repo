@@ -93,7 +93,7 @@ async function testDeleteResponse(responsesService: ResponsesService, responseId
 }
 
 // Example function calls
-// SubmitResponse();
+//SubmitResponse();
 // GetResponsesByQuizId('quiz321');
 // GetResponseById('response001');
-// DeleteResponse('response001');
+DeleteResponse('response001');
