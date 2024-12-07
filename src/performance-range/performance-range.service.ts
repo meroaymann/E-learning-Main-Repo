@@ -10,27 +10,18 @@ export class PerformanceRangeService {
     private readonly performanceRangeModel: Model<PerformanceRangeDocument>,
   ) {}
 
-  // Create a new PerformanceRange
-  async create(data: Partial<PerformanceRange>): Promise<PerformanceRange> {
-    const newRange = new this.performanceRangeModel(data);
-    return await newRange.save();
-  }
-
-  // Get all PerformanceRanges
+  // Fetch all performance ranges
   async findAll(): Promise<PerformanceRange[]> {
     return await this.performanceRangeModel.find().exec();
   }
 
-  // Get a specific PerformanceRange by ID
-  async findById(id: string): Promise<PerformanceRange> {
-    const range = await this.performanceRangeModel.findById(id).exec();
-    if (!range) {
-      throw new NotFoundException(`PerformanceRange with ID ${id} not found`);
-    }
-    return range;
+  // Create a new performance range
+  async create(data: Partial<PerformanceRange>): Promise<PerformanceRange> {
+    const newPerformanceRange = new this.performanceRangeModel(data);
+    return await newPerformanceRange.save();
   }
 
-  // Update a PerformanceRange by ID
+  // Update a performance range
   async update(
     id: string,
     data: Partial<PerformanceRange>,
@@ -40,17 +31,17 @@ export class PerformanceRangeService {
       .exec();
 
     if (!updatedRange) {
-      throw new NotFoundException(`PerformanceRange with ID ${id} not found`);
+      throw new NotFoundException(`Performance Range with ID ${id} not found`);
     }
 
     return updatedRange;
   }
 
-  // Delete a PerformanceRange by ID
+  // Delete a performance range
   async delete(id: string): Promise<void> {
     const result = await this.performanceRangeModel.findByIdAndDelete(id).exec();
     if (!result) {
-      throw new NotFoundException(`PerformanceRange with ID ${id} not found`);
+      throw new NotFoundException(`Performance Range with ID ${id} not found`);
     }
   }
 }
