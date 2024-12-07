@@ -45,5 +45,7 @@ async function testGetAll(authenticationLogService: AuthenticationLogService) {
 }
 
 // Example function calls
+// Uncomment one of the following lines to test the corresponding functionality:
+
 // LogAuthenticationEvent();
-// FetchAllAuthenticationLogs();
+FetchAllAuthenticationLogs();

@@ -1,8 +1,8 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from 'src/app.module';
-import { NotesService } from 'src/notes/notes.service';
-import { CreateNoteDto } from 'src/notes/DTOs/CreateNoteDto';
-import { UpdateNoteDto } from 'src/notes/DTOs/UpdateNoteDto';
+import { AppModule } from './app.module';
+import { NotesService } from './notes/notes.service';
+import { CreateNoteDto } from './notes/DTOs/CreateNoteDto';
+import { UpdateNoteDto } from './notes/DTOs/UpdateNoteDto';
 
 async function CreateNote() {
   const app = await NestFactory.createApplicationContext(AppModule);
@@ -124,7 +124,7 @@ async function testDeleteNote(notesService: NotesService, noteId: string, userId
 }
 
 // Example function calls
-// CreateNote();
+CreateNote();
 // GetAllNotes('user123');
 // GetNoteById('note001', 'user123');
 // UpdateNote('note001', 'user123');
