@@ -15,23 +15,48 @@ export class QuizQuestionsService {
     quizId: string,
     questions: Partial<QuizQuestion>[],
   ): Promise<QuizQuestion[]> {
+    if (!quizId || !questions || !Array.isArray(questions) || questions.length === 0) {
+      throw new Error('Invalid quizId or questions input');
+    }
+
     const linkedQuestions = questions.map((question) => ({
       ...question,
       quizId,
     }));
-    return await this.quizQuestionModel.insertMany(linkedQuestions);
+
+    try {
+      return await this.quizQuestionModel.insertMany(linkedQuestions);
+    } catch (error) {
+      throw new Error(`Failed to link questions to quiz: ${error.message}`);
+    }
   }
 
   // Get all questions linked to a quiz
   async getQuestionsByQuizId(quizId: string): Promise<QuizQuestion[]> {
-    return await this.quizQuestionModel.find({ quizId }).exec();
+    if (!quizId) {
+      throw new Error('Quiz ID is required');
+    }
+
+    try {
+      return await this.quizQuestionModel.find({ quizId }).exec();
+    } catch (error) {
+      throw new Error(`Failed to fetch questions for quiz ID ${quizId}: ${error.message}`);
+    }
   }
 
   // Unlink a question from a quiz
   async unlinkQuestion(id: string): Promise<void> {
-    const result = await this.quizQuestionModel.findByIdAndDelete(id).exec();
-    if (!result) {
-      throw new NotFoundException(`Quiz question with ID ${id} not found`);
+    if (!id) {
+      throw new Error('Question ID is required');
+    }
+
+    try {
+      const result = await this.quizQuestionModel.findByIdAndDelete(id).exec();
+      if (!result) {
+        throw new NotFoundException(`Quiz question with ID ${id} not found`);
+      }
+    } catch (error) {
+      throw new Error(`Failed to unlink question with ID ${id}: ${error.message}`);
     }
   }
 }

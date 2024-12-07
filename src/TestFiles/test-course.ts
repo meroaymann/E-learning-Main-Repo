@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-import { CourseService } from './courses/courses.service';
-import { CreateCoursesDto } from './courses/DTOs/CreateCourseDto';
+import { AppModule } from 'src/app.module';
+import { CourseService } from 'src/courses/courses.service';
+import { CreateCoursesDto } from 'src/courses/DTOs/CreateCourseDto';
 
 async function CreateCourse() {
   const app = await NestFactory.createApplicationContext(AppModule);

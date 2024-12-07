@@ -18,7 +18,7 @@ import { CreateUsersDto } from './DTOs/CreateUserDto';
 @Controller('users')
 export class UsersController {
 
-   
+
   @Public()
   /*@Post('auth/register')*/
   @Post('register')

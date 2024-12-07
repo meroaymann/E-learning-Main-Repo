@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-import { UsersService } from './users/users.service';
-import { CreateUsersDto } from './users/DTOs/CreateUserDto';
+import { AppModule } from 'src/app.module';
+import { UsersService } from 'src/users/users.service';
+import { CreateUsersDto } from 'src/users/DTOs/CreateUserDto';
 
 async function RegisterUser() {
   const app = await NestFactory.createApplicationContext(AppModule);
@@ -125,6 +125,6 @@ async function testGetById(usersService: UsersService, userId: string) {
 
 //RegisterUser();
 //DeleteUser();
-UpdateUser("234");
+//UpdateUser("234");
 //GetAllUsers();
-GetSingleUser("234");
+//GetSingleUser("234");
