@@ -1,40 +1,40 @@
-import { Controller, Get, Post, Patch, Delete, Body, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Query,
+  Req,
+  HttpCode,
+  HttpStatus,
+} from '@nestjs/common';
 import { ProgressService } from './progress.service';
-import { CreateProgressDto } from './DTOs/CreateProgressDto';
-import { UpdateProgressDto } from './DTOs/UpdateProgressDto'; 
-import { Progress, ProgressDocument } from './models/progress.schema';
 
 @Controller('progress')
 export class ProgressController {
   constructor(private readonly progressService: ProgressService) {}
 
-  // Create a new progress record
+  // Fetch progress of the authenticated user
+  @Get()
+  async fetchUserProgress(@Req() req) {
+    const userId = req.user?.id; // Assumes user authentication middleware adds the user object
+    if (!userId) {
+      throw new Error('Authentication required');
+    }
+    return await this.progressService.fetchUserProgress(userId);
+  }
+
+  // Fetch progress for all users in a specific course
+  @Get('/courses/:id')
+  async fetchCourseProgress(@Param('id') courseId: string) {
+    return await this.progressService.fetchCourseProgress(courseId);
+  }
+
+  // Add or update a user's progress
   @Post()
-  async createProgress(@Body() createProgressDto: CreateProgressDto): Promise<Progress> {
-    return await this.progressService.createProgress(createProgressDto);
-  }
-
-  // Get progress details by userId and courseId
-  @Get(':userId/:courseId')
-  async getProgressByUserAndCourse(
-    @Param('userId') userId: string,
-    @Param('courseId') courseId: string,
-  ): Promise<Progress> {
-    return await this.progressService.getProgressByUserAndCourse(userId, courseId);
-  }
-
-  // Update an existing progress record
-  @Patch(':id')
-  async updateProgress(
-    @Param('id') id: string,
-    @Body() updateProgressDto: UpdateProgressDto,
-  ): Promise<Progress> {
-    return await this.progressService.updateProgress(id, updateProgressDto);
-  }
-
-  // Delete a progress record (Purpose remove a progress record)
-  @Delete(':id')
-  async deleteProgress(@Param('id') id: string): Promise<void> {
-    return await this.progressService.deleteProgress(id);
+  @HttpCode(HttpStatus.CREATED)
+  async addOrUpdateProgress(@Body() progressData) {
+    return await this.progressService.addOrUpdateProgress(progressData);
   }
 }
