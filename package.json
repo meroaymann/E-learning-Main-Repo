@@ -22,7 +22,7 @@
     "test-responses": "ts-node src/test-responses.ts",
     "test-quizzes": "ts-node src/test-quizzes.ts",
     "test-quiz_questions": "ts-node src/test-quiz_questions.ts",
-    "test-question_bank": "ts-node src/test-question_bank.ts",
+    "test-questions_bank": "ts-node src/test-questions_bank.ts",
     "test-question_bank_answers": "ts-node src/test-question_bank_answers.ts",
     "test-progress": "ts-node src/test-progress.ts",
     "test-performance_range": "ts-node src/test-performance_range.ts",
