@@ -19,7 +19,21 @@ export class QuizQuestionsService {
       ...question,
       quizId,
     }));
-    return await this.quizQuestionModel.insertMany(linkedQuestions);
+
+    const createdDocs = await this.quizQuestionModel.insertMany(linkedQuestions);
+
+    // Map Mongoose documents to plain QuizQuestion objects
+    return createdDocs.map((doc) => ({
+      quizQuestionId: doc.quizQuestionId,
+      courseId: doc.courseId,
+      moduleId: doc.moduleId,
+      quizId: doc.quizId,
+      questionBankId: doc.questionBankId,
+      createdBy: doc.createdBy,
+      createdAt: doc.createdAt,
+      updatedBy: doc.updatedBy,
+      updatedAt: doc.updatedAt,
+    }));
   }
 
   // Get all questions linked to a quiz
