@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Patch, Delete, Body, Param } from '@nestjs/common';
 import { ProgressService } from './progress.service';
-import { CreateProgressDTO } from './DTOs/CreateProgressDto';
-import { UpdateProgressDTO } from './DTOs/UpdateProgressDto'; 
+import { CreateProgressDto } from './DTOs/CreateProgressDto';
+import { UpdateProgressDto } from './DTOs/UpdateProgressDto'; 
 import { Progress, ProgressDocument } from './models/progress.schema';
 
 @Controller('progress')
@@ -10,7 +10,7 @@ export class ProgressController {
 
   // Create a new progress record
   @Post()
-  async createProgress(@Body() createProgressDto: CreateProgressDTO): Promise<Progress> {
+  async createProgress(@Body() createProgressDto: CreateProgressDto): Promise<Progress> {
     return await this.progressService.createProgress(createProgressDto);
   }
 
@@ -27,7 +27,7 @@ export class ProgressController {
   @Patch(':id')
   async updateProgress(
     @Param('id') id: string,
-    @Body() updateProgressDto: UpdateProgressDTO,
+    @Body() updateProgressDto: UpdateProgressDto,
   ): Promise<Progress> {
     return await this.progressService.updateProgress(id, updateProgressDto);
   }

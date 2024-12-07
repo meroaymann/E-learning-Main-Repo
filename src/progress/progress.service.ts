@@ -2,15 +2,15 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Progress, ProgressDocument } from './models/progress.schema';
-import { CreateProgressDTO } from './DTOs/CreateProgressDto';
-import { UpdateProgressDTO } from './DTOs/UpdateProgressDto'; 
+import { CreateProgressDto } from './DTOs/CreateProgressDto';
+import { UpdateProgressDto } from './DTOs/UpdateProgressDto'; 
 
 @Injectable()
 export class ProgressService {
   constructor(@InjectModel(Progress.name) private progressModel: Model<ProgressDocument>) {}
 
   // Create a new progress record
-  async createProgress(createProgressDto: CreateProgressDTO): Promise<Progress> {
+  async createProgress(createProgressDto: CreateProgressDto): Promise<Progress> {
     const progress = new this.progressModel(createProgressDto);
     return await progress.save();
   }
@@ -21,7 +21,7 @@ export class ProgressService {
   }
 
   // Update an existing progress record
-  async updateProgress(id: string, updateProgressDto: UpdateProgressDTO): Promise<Progress> {
+  async updateProgress(id: string, updateProgressDto: UpdateProgressDto): Promise<Progress> {
     return await this.progressModel.findByIdAndUpdate(id, updateProgressDto, { new: true }).exec();
   }
 

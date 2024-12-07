@@ -1,50 +1,87 @@
-
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User, UserDocument } from './models/users.schema';
-import { CreateUserDTO } from './DTOs/CreateUserDto';
-import { UpdateUserDTO } from './DTOs/UpdateUserDto';
+import { CreateUsersDto } from './DTOs/CreateUserDto';
+import { UpdateUsersDto } from './DTOs/UpdateUserDto';
+import * as bcrypt from 'bcrypt';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
+    @InjectModel(User.name) private userModel: Model<UserDocument>,
+    private jwtService: JwtService,
   ) {}
-
-  // Create a new user
-  async create(userData: CreateUserDTO): Promise<UserDocument> {
-    const newUser = new this.userModel(userData);
-    return await newUser.save();
+    async register(createUserDto: CreateUsersDto): Promise<User> {
+    const hashedPassword = await bcrypt.hash(createUserDto.passwordHash, 10);
+    const user = new this.userModel({
+      ...createUserDto,
+      passwordHash: hashedPassword,
+    });
+    return user.save();
   }
 
-  // Find user by email
-  async findByEmail(email: string): Promise<UserDocument> {
-    return await this.userModel.findOne({ email });
+  async login(email: string, password: string): Promise<{ accessToken: string }> {
+    const user = await this.userModel.findOne({ email });
+    if (!user) {
+      throw new UnauthorizedException('Invalid credentials');
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.passwordHash);
+    if (!isPasswordValid) {
+      throw new UnauthorizedException('Invalid credentials');
+    }
+
+    const payload = { userId: user.userId, role: user.role };
+    const accessToken = this.jwtService.sign(payload);
+    return { accessToken };
   }
 
-  // Find user by ID
-  async findById(id: string): Promise<UserDocument> {
-    return await this.userModel.findById(id);
+  async logout(): Promise<{ message: string }> {
+    // Placeholder for token blacklist or session invalidation logic
+    return { message: 'Logout successful' };
   }
 
-  // Find all users
-  async findAll(): Promise<UserDocument[]> {
-    return await this.userModel.find();
+  async findAll(): Promise<User[]> {
+    return this.userModel.find().exec();
   }
 
-  // Update a user's details by ID
-  async update(id: string, updateData: UpdateUserDTO): Promise<UserDocument> {
-    return await this.userModel.findByIdAndUpdate(id, updateData, { new: true });
+  async findById(userId: string): Promise<User> {
+    const user = await this.userModel.findOne({ userId });
+    if (!user) {
+      throw new NotFoundException(`User with ID ${userId} not found`);
+    }
+    return user;
   }
 
-  // Delete a user by ID
-  async delete(id: string): Promise<UserDocument> {
-    return await this.userModel.findByIdAndDelete(id);
+  async update(userId: string, updateUserDto: UpdateUsersDto): Promise<User> {
+    const updatedUser = await this.userModel
+      .findOneAndUpdate({ userId }, updateUserDto, { new: true })
+      .exec();
+
+    if (!updatedUser) {
+      throw new NotFoundException(`User with ID ${userId} not found`);
+    }
+    return updatedUser;
   }
 
-  // Additional method: Find by role
-  async findByRole(role: string): Promise<UserDocument[]> {
-    return await this.userModel.find({ role });
+  async activate(userId: string, isActive: string): Promise<User> {
+    const updatedUser = await this.userModel
+      .findOneAndUpdate({ userId }, { isActive }, { new: true })
+      .exec();
+
+    if (!updatedUser) {
+      throw new NotFoundException(`User with ID ${userId} not found`);
+    }
+    return updatedUser;
+  }
+
+  async remove(userId: string): Promise<{ message: string }> {
+    const result = await this.userModel.deleteOne({ userId }).exec();
+    if (result.deletedCount === 0) {
+      throw new NotFoundException(`User with ID ${userId} not found`);
+    }
+    return { message: 'User deleted successfully' };
   }
 }

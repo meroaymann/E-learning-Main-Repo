@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "node",
+        "request": "launch",
+        "name": "Debug NestJS Application",
+        "program": "${workspaceFolder}/node_modules/.bin/nest",
+        "args": ["start"],
+        "autoAttachChildProcesses": true,
+        "sourceMaps": true,
+        "cwd": "${workspaceFolder}",
+        "outFiles": ["${workspaceFolder}/dist/**/*.js"]
+      }
+    ]
+  }
+  
