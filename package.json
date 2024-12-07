@@ -19,7 +19,7 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "test-user": "ts-node src/test-user.ts",
-    "test-responses": "ts-node src/test-responses.ts",
+    "test-c": "ts-node src/test-responses.ts",
     "test-quizzes": "ts-node src/test-quizzes.ts",
     "test-quiz_questions": "ts-node src/test-quiz_questions.ts",
     "test-quiz_bank": "ts-node src/test-quiz_bank.ts",

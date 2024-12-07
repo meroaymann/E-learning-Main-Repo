@@ -1,8 +1,8 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from 'src/app.module';
-import { ForumRepliesService } from 'src/forum-replies/forum-replies.service';
-import { CreateForumReplyDto } from 'src/forum-replies/DTOs/CreateForumRepliesDto';
-import { UpdateForumReplyDto } from 'src/forum-replies/DTOs/UpdateForumRepliesDto';
+import { AppModule } from './app.module';
+import { ForumRepliesService } from './forum-replies/forum-replies.service';
+import { CreateForumReplyDto } from './forum-replies/DTOs/CreateForumRepliesDto';
+import { UpdateForumReplyDto } from './forum-replies/DTOs/UpdateForumRepliesDto';
 
 async function RegisterReply() {
   const app = await NestFactory.createApplicationContext(AppModule);

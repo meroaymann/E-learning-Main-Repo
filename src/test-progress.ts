@@ -1,8 +1,7 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from 'src/app.module';
-import { ProgressService } from 'src/progress/progress.service';
-import { CreateProgressDto } from 'src/progress/DTOs/CreateProgressDto';
-import { UpdateProgressDto } from 'src/progress/DTOs/UpdateProgressDto';
+import { AppModule } from './app.module';
+import { ProgressService } from './progress/progress.service';
+import { CreateProgressDto } from './progress/DTOs/CreateProgressDto';
 
 async function FetchUserProgress(userId: string) {
   const app = await NestFactory.createApplicationContext(AppModule);

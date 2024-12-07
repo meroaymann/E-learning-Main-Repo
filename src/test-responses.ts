@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from 'src/app.module';
-import { ResponsesService } from 'src/responses/responses.service';
-import { CreateResponseDto } from 'src/responses/DTOs/CreateResponseDto';
+import { AppModule } from './app.module';
+import { ResponsesService } from './responses/responses.service';
+import { CreateResponseDto } from './responses/DTOs/CreateResponseDto';
 
 async function SubmitResponse() {
   const app = await NestFactory.createApplicationContext(AppModule);
