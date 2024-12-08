@@ -7,11 +7,11 @@ describe('ResponsesService', () => {
   let service: ResponsesService;
 
   const mockResponseModel = {
-    create: jest.fn(),
-    find: jest.fn(),
-    findById: jest.fn(),
-    findByIdAndUpdate: jest.fn(),
-    findByIdAndDelete: jest.fn(),
+    save: jest.fn(),
+    find: jest.fn().mockReturnThis(),
+    exec: jest.fn(),
+    findById: jest.fn().mockReturnThis(),
+    findByIdAndDelete: jest.fn().mockReturnThis(),
   };
 
   beforeEach(async () => {
@@ -34,45 +34,33 @@ describe('ResponsesService', () => {
 
   it('should create a response', async () => {
     const dto = {
-      id: '12345',
       userId: 'user123',
       quizId: 'quiz456',
       answers: [
         { questionId: 'q1', selectedAnswer: 'A', correctAnswer: 'B' },
       ],
       score: 80,
-      submittedAt: new Date(),
     };
-    await service.create(dto);
-    expect(mockResponseModel.create).toHaveBeenCalledWith(dto);
+    mockResponseModel.save.mockResolvedValue(dto);
+    const result = await service.submitResponse(dto);
+    expect(result).toEqual(dto);
   });
 
-  it('should find all responses', async () => {
-    await service.findAll();
-    expect(mockResponseModel.find).toHaveBeenCalled();
+  it('should find all responses for a quiz', async () => {
+    const quizId = 'quiz456';
+    await service.getResponsesByQuizId(quizId);
+    expect(mockResponseModel.find).toHaveBeenCalledWith({ quizId });
   });
 
   it('should find a response by id', async () => {
     const id = '123';
-    await service.findOne(id);
+    await service.getResponseById(id);
     expect(mockResponseModel.findById).toHaveBeenCalledWith(id);
   });
 
-  it('should update a response', async () => {
+  it('should delete a response', async () => {
     const id = '123';
-    const dto = {
-      answers: [
-        { questionId: 'q1', selectedAnswer: 'C', correctAnswer: 'C' },
-      ],
-      score: 90,
-    };
-    await service.update(id, dto);
-    expect(mockResponseModel.findByIdAndUpdate).toHaveBeenCalledWith(id, dto, { new: true });
-  });
-
-  it('should remove a response', async () => {
-    const id = '123';
-    await service.remove(id);
+    await service.deleteResponse(id);
     expect(mockResponseModel.findByIdAndDelete).toHaveBeenCalledWith(id);
   });
 });

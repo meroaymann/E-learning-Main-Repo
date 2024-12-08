@@ -7,11 +7,10 @@ describe('ResponsesController', () => {
   let service: ResponsesService;
 
   const mockService = {
-    create: jest.fn(),
-    findAll: jest.fn(),
-    findOne: jest.fn(),
-    update: jest.fn(),
-    remove: jest.fn(),
+    submitResponse: jest.fn(),
+    getResponsesByQuizId: jest.fn(),
+    getResponseById: jest.fn(),
+    deleteResponse: jest.fn(),
   };
 
   beforeEach(async () => {
@@ -33,47 +32,37 @@ describe('ResponsesController', () => {
     expect(controller).toBeDefined();
   });
 
-  it('should call create on service with correct data', async () => {
+  it('should call submitResponse on service with correct data', async () => {
     const dto = {
-      id: '1',
       userId: 'user123',
-      quizId: 'quiz456',
       answers: [
         { questionId: 'q1', selectedAnswer: 'A', correctAnswer: 'B' },
       ],
       score: 80,
-      submittedAt: new Date(),
     };
-    await controller.create(dto);
-    expect(service.create).toHaveBeenCalledWith(dto);
+    const quizId = 'quiz456';
+    await controller.submitResponse(quizId, dto);
+    expect(mockService.submitResponse).toHaveBeenCalledWith({
+      ...dto,
+      quizId,
+    });
   });
 
-  it('should call findAll on service', async () => {
-    await controller.findAll();
-    expect(service.findAll).toHaveBeenCalled();
+  it('should call getResponsesByQuizId on service', async () => {
+    const quizId = 'quiz456';
+    await controller.getResponsesByQuizId(quizId);
+    expect(mockService.getResponsesByQuizId).toHaveBeenCalledWith(quizId);
   });
 
-  it('should call findOne on service with correct id', async () => {
+  it('should call getResponseById on service with correct id', async () => {
     const id = '123';
-    await controller.findOne(id);
-    expect(service.findOne).toHaveBeenCalledWith(id);
+    await controller.getResponseById(id);
+    expect(mockService.getResponseById).toHaveBeenCalledWith(id);
   });
 
-  it('should call update on service with correct id and data', async () => {
+  it('should call deleteResponse on service with correct id', async () => {
     const id = '123';
-    const dto = {
-      answers: [
-        { questionId: 'q1', selectedAnswer: 'C', correctAnswer: 'C' },
-      ],
-      score: 90,
-    };
-    await controller.update(id, dto);
-    expect(service.update).toHaveBeenCalledWith(id, dto);
-  });
-
-  it('should call remove on service with correct id', async () => {
-    const id = '123';
-    await controller.remove(id);
-    expect(service.remove).toHaveBeenCalledWith(id);
+    await controller.deleteResponse(id);
+    expect(mockService.deleteResponse).toHaveBeenCalledWith(id);
   });
 });

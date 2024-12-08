@@ -13,12 +13,12 @@ export class ResponsesService {
   // Submit quiz responses
   async submitResponse(responseData: Partial<Response>): Promise<Response> {
     const response = new this.responseModel(responseData);
-    return await response.save();
+    return response.save();
   }
 
   // Get all responses for a quiz
   async getResponsesByQuizId(quizId: string): Promise<Response[]> {
-    return await this.responseModel.find({ quizId }).exec();
+    return this.responseModel.find({ quizId }).exec();
   }
 
   // Get details of a specific response
