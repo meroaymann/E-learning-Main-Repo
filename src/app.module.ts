@@ -21,9 +21,13 @@ import { ForumsUsersModule } from './forums-users/forums-users.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Module, OnModuleInit } from '@nestjs/common';
 import { ModuleRef } from '@nestjs/core';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [
+  imports: [ConfigModule.forRoot({
+    isGlobal: true,
+    envFilePath: '.env',
+  }),
     AuthModule,
     UsersModule,
     CoursesModule,

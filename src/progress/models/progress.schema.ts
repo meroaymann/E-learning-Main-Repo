@@ -17,26 +17,26 @@ export class Progress {
   @Prop({ required: false })
   courseSequence?: number; // Learning path sequence (optional)
 
-  @Prop({ required: true })
-  quizzesPercentage: number; // Percentage of quizzes completed
+  @Prop({ required: false })
+  quizzesPercentage?: number; // Percentage of quizzes completed
 
-  @Prop({ required: true, enum: ['Yes', 'No'], default: 'No' })
-  quizzesCompleted: string; // All quizzes completed (Yes, No)
+  @Prop({ required: false, enum: ['Yes', 'No'], default: 'No' })
+  quizzesCompleted?: string; // All quizzes completed (Yes, No)
 
-  @Prop({ required: true })
-  modulesPercentage: number; // Percentage of modules completed
+  @Prop({ required: false })
+  modulesPercentage?: number; // Percentage of modules completed
 
-  @Prop({ required: true, enum: ['Yes', 'No'], default: 'No' })
-  modulesCompleted: string; // All modules completed (Yes, No)
+  @Prop({ required: false, enum: ['Yes', 'No'], default: 'No' })
+  modulesCompleted?: string; // All modules completed (Yes, No)
 
-  @Prop({ required: true })
-  coursePercentage: number; // Percentage of course completed
+  @Prop({ required: false })
+  coursePercentage?: number; // Percentage of course completed
 
   @Prop({ required: false })
   performanceRangeId?: string; // Associated performance_range ID
 
-  @Prop({ required: true, enum: ['Yes', 'No'], default: 'No' })
-  courseCompleted: string; // All course completed (Yes, No)
+  @Prop({ required: false, enum: ['Yes', 'No'], default: 'No' })
+  courseCompleted?: string; // All course completed (Yes, No)
 
   @Prop({ required: false })
   rateCourse?: number; // Student rating of the course (up to five stars)
@@ -50,11 +50,11 @@ export class Progress {
   @Prop({ required: false })
   instructorFeedback?: string; // Student feedback for the instructor (text)
 
-  @Prop({ required: true })
-  enrollDate: Date; // Student enroll date
+  @Prop({ required: false, default: () => new Date() })
+  enrollDate?: Date; // Student enroll date
 
-  @Prop({ required: true })
-  lastAccessed: Date; // Last time the course was accessed
+  @Prop({ required: false, default: () => new Date() })
+  lastAccessed?: Date; // Last time the course was accessed
 
   @Prop({ required: true })
   createdBy: string; // userId who created the record

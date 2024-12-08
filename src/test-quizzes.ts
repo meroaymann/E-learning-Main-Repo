@@ -119,7 +119,7 @@ async function testDelete(quizService: QuizService, quizId: string) {
 }
 
 // Example function calls
-// CreateQuiz('module789');
+CreateQuiz('module789');
 // GetAllQuizzesByModuleId('module789');
 // GetQuizById('quiz001');
 // UpdateQuiz('quiz001');

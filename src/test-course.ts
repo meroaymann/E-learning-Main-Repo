@@ -9,7 +9,6 @@ async function CreateCourse() {
 
   // Example: Test the register method
  
-
   const createCourseDto: CreateCoursesDto = {
     courseId:'CRS505',
     title:'Course1' ,
